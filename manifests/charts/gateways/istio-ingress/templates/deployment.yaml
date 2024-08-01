@@ -135,7 +135,6 @@ spec:
           readinessProbe:
             failureThreshold: 30
           {{- if hasKey $gateway "customReadinessProbe" }}
-          customReadinessProbe:
 {{ toYaml $gateway.customReadinessProbe | indent 12 }}
           {{- else }}
             httpGet:
