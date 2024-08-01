@@ -133,6 +133,9 @@ spec:
             readOnlyRootFilesystem: true
         {{- end }}
           readinessProbe:
+{{- if $gateway.readinessProbe }}
+{{ toYaml $gateway.readinessProbe | indent 12 }}
+{{- else }}
             failureThreshold: 30
             httpGet:
               path: /healthz/ready
@@ -142,6 +145,7 @@ spec:
             periodSeconds: 2
             successThreshold: 1
             timeoutSeconds: 1
+{{- end }}
           resources:
 {{- if $gateway.resources }}
 {{ toYaml $gateway.resources | indent 12 }}
