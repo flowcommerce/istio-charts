@@ -133,19 +133,19 @@ spec:
             readOnlyRootFilesystem: true
         {{- end }}
           readinessProbe:
+{{- if $gateway.readinessProbe }}
+{{ toYaml $gateway.readinessProbe | indent 12 }}
+{{- else }}
             failureThreshold: 30
-          {{- if hasKey $gateway "customReadinessProbe" }}
-{{ toYaml $gateway.customReadinessProbe | indent 12 }}
-          {{- else }}
             httpGet:
               path: /healthz/ready
               port: 15021
               scheme: HTTP
-          {{- end }}
             initialDelaySeconds: 1
             periodSeconds: 2
             successThreshold: 1
             timeoutSeconds: 1
+{{- end }}
           resources:
 {{- if $gateway.resources }}
 {{ toYaml $gateway.resources | indent 12 }}
