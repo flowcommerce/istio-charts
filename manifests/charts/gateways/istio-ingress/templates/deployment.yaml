@@ -134,9 +134,9 @@ spec:
         {{- end }}
           readinessProbe:
             failureThreshold: 30
-          {{- if hasKey $ig "customReadinessProbe" }}
+          {{- if hasKey $gateway "customReadinessProbe" }}
           customReadinessProbe:
-{{ toYaml $ig.customReadinessProbe | indent 12 }}
+{{ toYaml $gateway.customReadinessProbe | indent 12 }}
           {{- else }}
             httpGet:
               path: /healthz/ready
