@@ -134,10 +134,15 @@ spec:
         {{- end }}
           readinessProbe:
             failureThreshold: 30
+          {{- if hasKey $ig "customReadinessProbe" }}
+          customReadinessProbe:
+{{ toYaml $ig.customReadinessProbe | indent 12 }}
+          {{- else }}
             httpGet:
               path: /healthz/ready
               port: 15021
               scheme: HTTP
+          {{- end }}
             initialDelaySeconds: 1
             periodSeconds: 2
             successThreshold: 1
